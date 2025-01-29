@@ -1,0 +1,95 @@
+<div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="w-full max-w-sm p-6 bg-white rounded shadow">
+        <h2 class="text-2xl mb-4 font-bold text-center">
+            {{ mode === 'login' ? 'Login' : 'Register' }}
+        </h2>
+
+        <!-- Email Field -->
+        <label class="block mb-2">
+            <span class="text-gray-700">Email</span>
+            <input
+                [(ngModel)]="email"
+                name="email"
+                type="email"
+                class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </label>
+
+        <!-- Password Field -->
+        <label class="block mb-2">
+            <span class="text-gray-700">Password</span>
+            <input
+                [(ngModel)]="password"
+                name="password"
+                type="password"
+                class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </label>
+
+        <!-- Name Field (only if registering) -->
+        <div
+            *ngIf="mode === 'register'"
+            class="mb-2"
+        >
+            <label class="block">
+                <span class="text-gray-700">Name</span>
+                <input
+                    [(ngModel)]="name"
+                    name="name"
+                    type="text"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+            (click)="onSubmit()"
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+        >
+            {{ mode === 'login' ? 'Login' : 'Register' }}
+        </button>
+
+        <!-- Toggle Mode -->
+        <div class="mt-4 text-center">
+            <span
+                class="text-gray-600"
+                *ngIf="mode === 'login'"
+            >
+                Don’t have an account yet?
+                <button
+                    class="text-blue-600 hover:underline"
+                    (click)="mode = 'register'"
+                >
+                    Register
+                </button>
+            </span>
+            <span
+                class="text-gray-600"
+                *ngIf="mode === 'register'"
+            >
+                Already have an account?
+                <button
+                    class="text-blue-600 hover:underline"
+                    (click)="mode = 'login'"
+                >
+                    Login
+                </button>
+            </span>
+        </div>
+
+        <!-- Error / Success Messages -->
+        <p
+            *ngIf="errorMessage"
+            class="mt-4 text-red-500"
+        >
+            {{ errorMessage }}
+        </p>
+        <p
+            *ngIf="successMessage"
+            class="mt-4 text-green-500"
+        >
+            {{ successMessage }}
+        </p>
+    </div>
+</div>
