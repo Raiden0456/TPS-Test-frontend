@@ -1,0 +1,90 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Schedule Management</h1>
+
+    <!-- Schedule Table -->
+    <table class="min-w-full bg-white border border-gray-200">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b text-left">Day</th>
+                <th class="py-2 px-4 border-b text-left">Start Time</th>
+                <th class="py-2 px-4 border-b text-left">End Time</th>
+                <th class="py-2 px-4 border-b text-left">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of schedules">
+                <td class="py-2 px-4 border-b">{{ schedule.day }}</td>
+                <td class="py-2 px-4 border-b">{{ schedule.start_time }}</td>
+                <td class="py-2 px-4 border-b">{{ schedule.end_time }}</td>
+                <td class="py-2 px-4 border-b">
+                    <button
+                        class="bg-blue-500 text-white px-2 py-1 rounded"
+                        (click)="editSchedule(schedule)"
+                    >
+                        Edit
+                    </button>
+                    <button
+                        class="bg-red-500 text-white px-2 py-1 rounded ml-2"
+                        (click)="deleteSchedule(schedule.uuid)"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Schedule Form -->
+    <div class="mt-4">
+        <h2 class="text-xl font-bold mb-2">{{ isEditing ? 'Edit Schedule' : 'Add Schedule' }}</h2>
+        <form (ngSubmit)="onSubmit()">
+            <div class="mb-2">
+                <label class="block text-gray-700">Day</label>
+                <select
+                    [(ngModel)]="scheduleForm.day"
+                    name="day"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                >
+                    <option
+                        *ngFor="let day of days"
+                        [value]="day"
+                    >
+                        {{ day }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <label class="block text-gray-700">Start Time</label>
+                <input
+                    [(ngModel)]="scheduleForm.start_time"
+                    name="start_time"
+                    type="time"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+            </div>
+            <div class="mb-2">
+                <label class="block text-gray-700">End Time</label>
+                <input
+                    [(ngModel)]="scheduleForm.end_time"
+                    name="end_time"
+                    type="time"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                />
+            </div>
+            <button
+                type="submit"
+                class="bg-green-500 text-white px-4 py-2 rounded"
+            >
+                {{ isEditing ? 'Update' : 'Add' }} Schedule
+            </button>
+        </form>
+    </div>
+
+    <!-- Go Back to Login Button -->
+    <button
+        class="bg-gray-500 text-white px-4 py-2 rounded mt-4"
+        (click)="goBackToLogin()"
+    >
+        Go Back to Login
+    </button>
+</div>

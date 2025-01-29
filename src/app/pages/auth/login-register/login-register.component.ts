@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-login-register',
@@ -18,7 +19,10 @@ export class LoginRegisterComponent {
     errorMessage = ''
     successMessage = ''
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+    ) {}
 
     onSubmit() {
         this.errorMessage = ''
@@ -32,9 +36,30 @@ export class LoginRegisterComponent {
                 })
                 .subscribe({
                     next: (res) => {
-                        // Store token in localStorage
                         localStorage.setItem('auth_token', res.token)
                         this.successMessage = 'Login successful!'
+
+                        this.http
+                            .get<any>('/api/user', {
+                                headers: {
+                                    Authorization: `Bearer ${res.token}`,
+                                },
+                            })
+                            .subscribe({
+                                next: (userRes) => {
+                                    localStorage.setItem('user_role', userRes.role)
+                                    console.log('userRes', userRes)
+
+                                    if (userRes.role === 'ADMIN') {
+                                        this.router.navigate(['/admin/schedule'])
+                                    } else {
+                                        this.router.navigate(['/service-check'])
+                                    }
+                                },
+                                error: (err) => {
+                                    this.errorMessage = err.error?.message || 'Failed to fetch user details.'
+                                },
+                            })
                     },
                     error: (err) => {
                         this.errorMessage = err.error?.message || 'Login failed.'
@@ -49,9 +74,30 @@ export class LoginRegisterComponent {
                 })
                 .subscribe({
                     next: (res) => {
-                        // Store token in localStorage
                         localStorage.setItem('auth_token', res.token)
                         this.successMessage = 'Registration successful!'
+
+                        this.http
+                            .get<any>('/api/user', {
+                                headers: {
+                                    Authorization: `Bearer ${res.token}`,
+                                },
+                            })
+                            .subscribe({
+                                next: (userRes) => {
+                                    localStorage.setItem('user_role', userRes.role)
+                                    console.log('userRes', userRes)
+
+                                    if (userRes.role === 'ADMIN') {
+                                        this.router.navigate(['/admin/schedule'])
+                                    } else {
+                                        this.router.navigate(['/service-check'])
+                                    }
+                                },
+                                error: (err) => {
+                                    this.errorMessage = err.error?.message || 'Failed to fetch user details.'
+                                },
+                            })
                     },
                     error: (err) => {
                         this.errorMessage = err.error?.message || 'Registration failed.'

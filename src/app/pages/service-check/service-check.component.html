@@ -1,0 +1,41 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Service Check</h1>
+
+    <button
+        class="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+        (click)="checkAvailability()"
+    >
+        Check Availability
+    </button>
+
+    <button
+        class="bg-green-500 text-white px-4 py-2 rounded mb-4"
+        (click)="checkAvailableHours()"
+    >
+        Check Available Hours
+    </button>
+
+    <button
+        class="bg-gray-500 text-white px-4 py-2 rounded"
+        (click)="goBackToLogin()"
+    >
+        Go Back to Login
+    </button>
+
+    <div
+        *ngIf="availabilityMessage"
+        class="mt-4 text-lg"
+    >
+        {{ availabilityMessage }}
+    </div>
+
+    <div
+        *ngIf="availableHours.length > 0"
+        class="mt-4"
+    >
+        <h2 class="text-xl font-bold mb-2">Available Hours</h2>
+        <ul>
+            <li *ngFor="let hour of availableHours">{{ hour.day }}: {{ hour.start_time }} - {{ hour.end_time }}</li>
+        </ul>
+    </div>
+</div>

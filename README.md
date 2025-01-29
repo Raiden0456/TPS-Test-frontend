@@ -1,59 +1,53 @@
-# TPSTestFrontend
+# TPS-Test Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+## Описание
 
-## Development server
+Этот проект представляет собой клиентскую часть приложения, разработанную с использованием фреймворка Angular и стилей на TailwindCSS. Он включает в себя страницы для авторизации, управления расписанием и проверки доступности сервиса.
 
-To start a local development server, run:
+### Основные функции:
 
-```bash
-ng serve
-```
+- **Авторизация и регистрация пользователей**: Пользователи могут зарегистрироваться и войти в систему.
+- **Управление расписанием**: Администраторы могут создавать, редактировать и удалять расписания.
+- **Проверка доступности сервиса**: Пользователи могут проверять, доступен ли сервис в текущий момент времени.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Установка
 
-## Code scaffolding
+1. Клонируйте репозиторий:
+    ```sh
+    git clone <URL репозитория>
+    cd TPS-Test-frontend
+    ```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+2. Установите зависимости:
+    ```sh
+    npm install
+    ```
+    
+3. Укажите порт сервер в .env файле:
+    ```env
+    BACKEND_PORT=3000
+    ```   
 
-```bash
-ng generate component component-name
-```
+3. Запустите проект:
+    ```sh
+    npm start
+    ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+4. Проект будет доступен по адресу: `http://localhost:4200`
 
-```bash
-ng generate --help
-```
+## Скрипты
 
-## Building
+- `npm start` - Запуск проекта в режиме разработки
+- `npm run build` - Сборка проекта
+- `npm run watch` - Сборка проекта в режиме наблюдения
+- `npm run test` - Запуск тестов
+- `npm run serve:ssr:TPS-Test-frontend` - Запуск проекта в режиме серверного рендеринга
 
-To build the project run:
+## Структура проекта
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `src/app` - Основные компоненты и страницы приложения
+  - `pages/admin/schedule-admin` - Страница управления расписанием
+  - `pages/auth/login-register` - Страница авторизации и регистрации
+  - `pages/service-check` - Страница проверки доступности сервиса
+- `src/styles.css` - Глобальные стили проекта
+- `src/main.ts` - Главный файл для запуска приложения
